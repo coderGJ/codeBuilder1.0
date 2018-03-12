@@ -87,7 +87,6 @@ public class ${(entity.className)!} extends BaseController {
         if (id == null) {
             return new ResponseData(false, "请选择一条记录");
         } else {
-        Parameters query = new Parameters();
         ResponseData date = ${(entity.service?uncap_first)!}.delete(id);
         return date;
         }
