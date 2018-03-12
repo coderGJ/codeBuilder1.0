@@ -33,7 +33,7 @@ public class ${(entity.className)!} extends BaseController {
 
     @RequestMapping(value = "index.html")
     public String index(ModelMap model,@ModelAttribute("parameters") Parameters parameters) {
-        ResponseData data = userService.execute(MethodName.PAGE, parameters);
+        ResponseData data = ${(entity.service?uncap_first)!}.execute(MethodName.PAGE, parameters);
         model.put("pager", data.getContent());
         return "${(entity.model?uncap_first)!}/index";
     }
@@ -46,7 +46,7 @@ public class ${(entity.className)!} extends BaseController {
     @RequestMapping(value = "save.json", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData save(ModelMap model, @ModelAttribute("entity") ${entity.model} entity) {
-        ResponseData date = userService.execute(MethodName.INSERT, entity);
+        ResponseData date = ${(entity.service?uncap_first)!}.execute(MethodName.INSERT, entity);
         if (!date.isSuccess()) {
             return new ResponseData(false, "保存数据时出错");
         }
@@ -57,7 +57,7 @@ public class ${(entity.className)!} extends BaseController {
     public String detail(${(entity.idType)!} id, ModelMap model) {
         Parameters query = new Parameters();
         query.put("id", id);
-        ${entity.model} entity = (${entity.model}) ${(entity.service)!}.execute(MethodName.GET, query).getContent();
+        ${entity.model} entity = (${entity.model}) ${(entity.service?uncap_first)!}.execute(MethodName.GET, query).getContent();
         model.put("entity", entity);
         return "${(entity.model?uncap_first)!}/detail";
     }
@@ -66,7 +66,7 @@ public class ${(entity.className)!} extends BaseController {
     public String edit(${(entity.idType)!} id, ModelMap model) {
         Parameters query = new Parameters();
         query.put("id", id);
-        ${entity.model} entity = (${entity.model}) ${(entity.service)!}.execute(MethodName.GET, query).getContent();
+        ${entity.model} entity = (${entity.model}) ${(entity.service?uncap_first)!}.execute(MethodName.GET, query).getContent();
         model.put("entity", entity);
         return "${(entity.model?uncap_first)!}/edit";
     }
@@ -74,7 +74,7 @@ public class ${(entity.className)!} extends BaseController {
     @RequestMapping(value = "update.json", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData update(@ModelAttribute("entity") ${entity.model} entity) {
-        ResponseData date = ${(entity.service)!}.execute(MethodName.UPDATE, entity);
+        ResponseData date = ${(entity.service?uncap_first)!}.execute(MethodName.UPDATE, entity);
         if (!date.isSuccess()) {
             return new ResponseData(false, "保存数据时出错");
         }
@@ -88,7 +88,7 @@ public class ${(entity.className)!} extends BaseController {
             return new ResponseData(false, "请选择一条记录");
         } else {
         Parameters query = new Parameters();
-        ResponseData date = ${(entity.service)!}.delete(id);
+        ResponseData date = ${(entity.service?uncap_first)!}.delete(id);
         return date;
         }
     }
