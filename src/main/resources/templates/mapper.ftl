@@ -31,7 +31,7 @@
         <#list entity.columnList as column>
         <#if column.columnType=="VARCHAR" || column.columnType=="CHAR" >
         <if test="${column.camelCaseName} != null and ${column.camelCaseName} != ''">
-            AND `${column.columnName}` LIKE CONCAT('%', <#noparse>#{escape_</#noparse>${column.camelCaseName}<#noparse>}</#noparse>, '%')
+            AND `${column.columnName}` LIKE CONCAT('%', <#noparse>#{</#noparse>${column.camelCaseName}<#noparse>}</#noparse>, '%')
             <#else>
         <if test="${column.camelCaseName} != null">
             AND `${column.columnName}` = <#noparse>#{</#noparse>${column.camelCaseName}, jdbcType = ${column.jdbcType}<#noparse>}</#noparse>
