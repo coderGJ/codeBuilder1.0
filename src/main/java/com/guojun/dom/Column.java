@@ -17,6 +17,9 @@ public class Column {
     //TYPE_NAME
     private String columnType;
 
+    //JDBC_TYPE
+    private String jdbcType;
+
     //COLUMN_SIZE
     private int columnSize;
 
@@ -55,6 +58,14 @@ public class Column {
 
     public void setColumnType(String columnType) {
         this.columnType = columnType;
+    }
+
+    public String getJdbcType() {
+        return jdbcType;
+    }
+
+    public void setJdbcType(String jdbcType) {
+        this.jdbcType = jdbcType;
     }
 
     public int getColumnSize() {

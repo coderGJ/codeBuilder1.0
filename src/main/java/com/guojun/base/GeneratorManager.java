@@ -392,11 +392,18 @@ public class GeneratorManager {
     private Column createColumn(ResultSet columnResult, String primaryKey) throws SQLException {
         Column column = new Column();
         String columnName = columnResult.getString("COLUMN_NAME");
+        String typeName = columnResult.getString("TYPE_NAME");
         int nullable = columnResult.getInt("NULLABLE");
 
         column.setCamelCaseName(JavaBeansUtil.getCamelCaseString(columnName, false));
         column.setColumnName(columnName);
-        column.setColumnType(columnResult.getString("TYPE_NAME"));
+        column.setColumnType(typeName);
+        if ("INT".equals(typeName)) {
+            typeName = "INTEGER";
+        } else if ("DATETIME".equals(typeName)) {
+            typeName = "TIMESTAMP";
+        }
+        column.setJdbcType(typeName);
         column.setColumnSize(columnResult.getInt("COLUMN_SIZE"));
         column.setDigits(columnResult.getInt("DECIMAL_DIGITS"));
         column.setRemarks(columnResult.getString("REMARKS"));

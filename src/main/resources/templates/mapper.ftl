@@ -6,11 +6,11 @@
 
     <resultMap id="BaseResultMap" type="${(entity.className)!}">
         <#if entity.primaryColumn??>
-        <id column="${entity.primaryColumn.columnName}" jdbcType="${entity.primaryColumn.columnType}" property="${entity.primaryColumn.camelCaseName}" />
+        <id column="${entity.primaryColumn.columnName}" jdbcType="${entity.primaryColumn.jdbcType}" property="${entity.primaryColumn.camelCaseName}" />
         </#if>
         <#if entity.columnList?? && (entity.columnList?size > 0) >
         <#list entity.columnList as column>
-        <result column="${column.columnName}" jdbcType="${column.columnType}" property="${column.camelCaseName}" />
+        <result column="${column.columnName}" jdbcType="${column.jdbcType}" property="${column.camelCaseName}" />
         </#list>
         </#if>
     </resultMap>
@@ -34,7 +34,7 @@
             AND `${column.columnName}` LIKE CONCAT('%', <#noparse>#{escape_</#noparse>${column.camelCaseName}<#noparse>}</#noparse>, '%')
             <#else>
         <if test="${column.camelCaseName} != null">
-            AND `${column.columnName}` = <#noparse>#{</#noparse>${column.camelCaseName}, jdbcType = ${column.columnType}<#noparse>}</#noparse>
+            AND `${column.columnName}` = <#noparse>#{</#noparse>${column.camelCaseName}, jdbcType = ${column.jdbcType}<#noparse>}</#noparse>
         </#if>
         </if>
         </#list>
@@ -67,7 +67,7 @@
         </selectKey>
         </#if>
         INSERT INTO `${entity.tableName}` (<#if entity.columnList?? && (entity.columnList?size > 0) ><#list entity.columnList as column> `${column.columnName}`<#if column_has_next>,</#if></#list></#if>)
-        VALUES (<#if entity.columnList?? && (entity.columnList?size > 0) ><#list entity.columnList as column><#noparse> #{</#noparse>${column.camelCaseName}, jdbcType = ${column.columnType}<#noparse>}</#noparse><#if column_has_next>,</#if></#list></#if>)
+        VALUES (<#if entity.columnList?? && (entity.columnList?size > 0) ><#list entity.columnList as column><#noparse> #{</#noparse>${column.camelCaseName}, jdbcType = ${column.jdbcType}<#noparse>}</#noparse><#if column_has_next>,</#if></#list></#if>)
     </insert>
 
     <update id="update" parameterType="${entity.className}">
@@ -81,11 +81,11 @@
             </#list>
             </#if>
         </set>
-        WHERE <#if entity.primaryColumn??>`${entity.primaryColumn.columnName}` = <#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}, jdbcType = ${entity.primaryColumn.columnType}<#noparse>}</#noparse></#if>
+        WHERE <#if entity.primaryColumn??>`${entity.primaryColumn.columnName}` = <#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}, jdbcType = ${entity.primaryColumn.jdbcType}<#noparse>}</#noparse></#if>
     </update>
 
     <delete id="delete" parameterType="<#if entity.primaryColumn.columnType == "BIGINT" || entity.primaryColumn.columnType == "INT">java.lang.Long<#else>java.lang.String</#if>">
         DELETE FROM `${entity.tableName}`
-        WHERE <#if entity.primaryColumn??>`${entity.primaryColumn.columnName}` = <#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}, jdbcType = ${entity.primaryColumn.columnType}<#noparse>}</#noparse></#if>
+        WHERE <#if entity.primaryColumn??>`${entity.primaryColumn.columnName}` = <#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}, jdbcType = ${entity.primaryColumn.jdbcType}<#noparse>}</#noparse></#if>
     </delete>
 </mapper>
