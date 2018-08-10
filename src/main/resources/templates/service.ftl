@@ -8,7 +8,7 @@ import ${baseConfig.basePackage}.${baseConfig.beanPackage}.${entity.model};
  *
  * @author  ${baseConfig.author}
  * @since   ${baseConfig.version}
- * @date    ${baseConfig.date}
+ * Created by GuoJun on ${baseConfig.date}
  */
 public interface ${(entity.className)!} extends BaseService<${(entity.model)!}, ${(entity.modelType)!}> {
 

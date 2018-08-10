@@ -12,7 +12,7 @@ import ${import};
  *
  * @author  ${baseConfig.author}
  * @since   ${baseConfig.version}
- * @date    ${baseConfig.date}
+ * Created by GuoJun on ${baseConfig.date}
  */
 public class ${(entity.className)!} {
 

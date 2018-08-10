@@ -22,10 +22,10 @@ import ${baseConfig.basePackage}.${baseConfig.servicePackage}.${(entity.service)
  *
  * @author  ${baseConfig.author}
  * @since   ${baseConfig.version}
- * @date    ${baseConfig.date}
+ * Created by GuoJun on ${baseConfig.date}
  */
 @Controller
-@RequestMapping("/${(entity.model?uncap_first)}/")
+@RequestMapping("/${(entity.model?uncap_first)}")
 public class ${(entity.className)!} extends BaseController {
 
     @Autowired
@@ -33,8 +33,7 @@ public class ${(entity.className)!} extends BaseController {
 
     @RequestMapping(value = "index.html")
     public String index(ModelMap model,@ModelAttribute("parameters") Parameters parameters) {
-        ResponseData data = ${(entity.service?uncap_first)!}.execute(MethodName.PAGE, parameters);
-        model.put("pager", data.getContent());
+        model.put("pager", ${(entity.service?uncap_first)!}.page(parameters));
         return "${(entity.model?uncap_first)!}/index";
     }
 
@@ -46,8 +45,8 @@ public class ${(entity.className)!} extends BaseController {
     @RequestMapping(value = "save.json", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData save(ModelMap model, @ModelAttribute("entity") ${entity.model} entity) {
-        ResponseData date = ${(entity.service?uncap_first)!}.execute(MethodName.INSERT, entity);
-        if (!date.isSuccess()) {
+        entity = ${(entity.service?uncap_first)!}.save(entity);
+        if (null == entity.getId()) {
             return new ResponseData(false, "保存数据时出错");
         }
         return ResponseData.SUCCESS_NO_DATA;
@@ -57,8 +56,8 @@ public class ${(entity.className)!} extends BaseController {
     public String detail(${(entity.idType)!} id, ModelMap model) {
         Parameters query = new Parameters();
         query.put("id", id);
-        ${entity.model} entity = (${entity.model}) ${(entity.service?uncap_first)!}.execute(MethodName.GET, query).getContent();
-        model.put("entity", entity);
+
+        model.put("entity", ${(entity.service?uncap_first)!}.findOne(query));
         return "${(entity.model?uncap_first)!}/detail";
     }
 
@@ -66,16 +65,16 @@ public class ${(entity.className)!} extends BaseController {
     public String edit(${(entity.idType)!} id, ModelMap model) {
         Parameters query = new Parameters();
         query.put("id", id);
-        ${entity.model} entity = (${entity.model}) ${(entity.service?uncap_first)!}.execute(MethodName.GET, query).getContent();
-        model.put("entity", entity);
+
+        model.put("entity", ${(entity.service?uncap_first)!}.findOne(query));
         return "${(entity.model?uncap_first)!}/edit";
     }
 
     @RequestMapping(value = "update.json", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData update(@ModelAttribute("entity") ${entity.model} entity) {
-        ResponseData date = ${(entity.service?uncap_first)!}.execute(MethodName.UPDATE, entity);
-        if (!date.isSuccess()) {
+        int result = ${(entity.service?uncap_first)!}.update(entity);
+        if (result < 0) {
             return new ResponseData(false, "保存数据时出错");
         }
         return ResponseData.SUCCESS_NO_DATA;
@@ -86,9 +85,11 @@ public class ${(entity.className)!} extends BaseController {
     public ResponseData delete(${(entity.idType)!} id) {
         if (id == null) {
             return new ResponseData(false, "请选择一条记录");
-        } else {
-        ResponseData date = ${(entity.service?uncap_first)!}.delete(id);
-        return date;
         }
+        int result = ${(entity.service?uncap_first)!}.delete(id);
+        if (result < 0) {
+            return new ResponseData(false, "删除数据时出错");
+        }
+        return ResponseData.SUCCESS_NO_DATA;
     }
 }

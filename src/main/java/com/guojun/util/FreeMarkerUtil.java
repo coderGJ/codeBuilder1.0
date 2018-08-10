@@ -1,24 +1,20 @@
 package com.guojun.util;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import com.guojun.config.BaseConfiguration;
 import com.guojun.config.Context;
 import com.guojun.dom.java.Controller;
 import com.guojun.dom.java.JavaBean;
-
 import com.guojun.dom.java.Mapper;
 import com.guojun.dom.java.Service;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * freemarker模板引擎生成模板
@@ -248,13 +244,19 @@ public class FreeMarkerUtil {
 
         File filePath = new File(outputFile);
         if (!filePath.getParentFile().exists()) {
-            filePath.getParentFile().mkdirs();
+            boolean result = filePath.getParentFile().mkdirs();
+            if (!result) {
+                throw new IOException("创建文件夹失败");
+            }
         }
 
         if (filePath.exists()) {
             throw new Exception(outputFile + " 文件已存在");
         }
-        filePath.createNewFile();
+        boolean result = filePath.createNewFile();
+        if (!result) {
+            throw new IOException("创建文件失败");
+        }
         // 显示生成的数据
         writer = new FileWriter(filePath);
         template.process(data, writer);

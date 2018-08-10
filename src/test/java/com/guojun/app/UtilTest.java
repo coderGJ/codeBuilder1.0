@@ -21,7 +21,7 @@ import java.util.Set;
 public class UtilTest {
 
     @Test
-    public void testgetCamelCaseString() {
+    public void testetCamelCaseString() {
         System.out.println(JavaBeansUtil.getCamelCaseString("BASE_cOnfig", true));
     }
     
@@ -36,7 +36,6 @@ public class UtilTest {
         try {
             manager.getConditionBeanList();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -53,10 +52,10 @@ public class UtilTest {
     @Test
     public void testGeneratorJavaBeanFile() {
         try {
-            String path = "";
-            String templateFtl = FreeMarkerUtil.TEMPLATE_JAVABEAN;
+            //String path = "";
+            //String templateFtl = FreeMarkerUtil.TEMPLATE_JAVABEAN;
             JavaBean javaBean = new JavaBean();
-            Set<String> importSet = new HashSet<String>();
+            Set<String> importSet = new HashSet<>();
             importSet.add("java.util.Date");
 
             Field field0 = new Field();
@@ -71,7 +70,7 @@ public class UtilTest {
             field1.setRemarks("用户姓名");
             field1.setColumnName("name");
 
-            List<Field> list = new ArrayList<Field>();
+            List<Field> list = new ArrayList<>();
             list.add(field0);
             list.add(field1);
             javaBean.setFieldList(list);

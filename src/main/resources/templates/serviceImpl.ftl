@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 *
 * @author  ${baseConfig.author}
 * @since   ${baseConfig.version}
-* @date    ${baseConfig.date}
+* Created by GuoJun on ${baseConfig.date}
 */
 @Service
-public class ${(entity.className)!}Impl extends BaseServiceImpl<${(entity.model)!}, ${(entity.modelType)!}> implements ${(entity.className)!} {
+public class ${(entity.className)!}Impl extends AbstractBaseServiceImpl<${(entity.model)!}, ${(entity.modelType)!}> implements ${(entity.className)!} {
     @Override
     public String getNamespace() {
         return ${(entity.model)!}.class.getName();

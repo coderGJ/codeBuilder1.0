@@ -17,29 +17,23 @@ import org.slf4j.LoggerFactory;
  */
 public class MysqlTest {
 
-    Logger logger = LoggerFactory.getLogger(MysqlTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(MysqlTest.class);
     
-    public void testConnet() {
+    public void testConnect() {
         
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("testConnect" ,e);
         } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("testConnect" ,e);
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("testConnect" ,e);
         }
         Connection conn = null;
         try {
             conn =
                DriverManager.getConnection("jdbc:mysql://localhost/qmxx?user=root&password=root");
-            // Do something with the Connection
-
-
             
         } catch (SQLException ex) {
             // handle any errors
@@ -64,6 +58,6 @@ public class MysqlTest {
     }
     public static void main (String[] args) {
         MysqlTest test = new MysqlTest();
-        test.testConnet();
+        test.testConnect();
     }
 }

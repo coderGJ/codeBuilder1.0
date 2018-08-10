@@ -1,9 +1,9 @@
 package com.guojun.config;
 
+import com.guojun.base.AppProperties;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.guojun.base.AppProperties;
 
 /**
  * 
