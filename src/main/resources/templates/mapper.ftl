@@ -50,9 +50,6 @@
         <if test="order != null">
             ORDER BY <#noparse>${order}</#noparse>
         </if>
-        <if test="start != null and limit != null">
-            LIMIT <#noparse>#{start},#{limit}</#noparse>
-        </if>
     </select>
 
     <select id="selectList_count" parameterType="parameters" resultType="java.lang.Long">
