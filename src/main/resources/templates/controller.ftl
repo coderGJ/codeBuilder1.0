@@ -12,10 +12,9 @@ import ${import};
 </#list>
 </#if>
 
-import ${baseConfig.basePackage}.bean.Parameters;
+import ${baseConfig.basePackage}.bean.Parameter;
 import ${baseConfig.basePackage}.bean.ResponseData;
 import ${baseConfig.basePackage}.${baseConfig.beanPackage}.${entity.model};
-import ${baseConfig.basePackage}.${baseConfig.servicePackage}.BaseService.MethodName;
 import ${baseConfig.basePackage}.${baseConfig.servicePackage}.${(entity.service)!};
 
 /**
@@ -32,8 +31,8 @@ public class ${(entity.className)!} extends BaseController {
     private ${(entity.service)!} ${(entity.service?uncap_first)!};
 
     @RequestMapping(value = "index.html")
-    public String index(ModelMap model,@ModelAttribute("parameters") Parameters parameters) {
-        model.put("pager", ${(entity.service?uncap_first)!}.page(parameters));
+    public String index(ModelMap model, @ModelAttribute("parameter") Parameter parameter) {
+        model.put("pager", ${(entity.service?uncap_first)!}.page(parameter));
         return "${(entity.model?uncap_first)!}/index";
     }
 
@@ -44,8 +43,8 @@ public class ${(entity.className)!} extends BaseController {
 
     @RequestMapping(value = "save.json", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData save(ModelMap model, @ModelAttribute("entity") ${entity.model} entity) {
-        entity = ${(entity.service?uncap_first)!}.save(entity);
+    public ResponseData save(@ModelAttribute("entity") ${entity.model} entity) {
+        entity = ${(entity.service?uncap_first)!}.insert(entity);
         if (null == entity.getId()) {
             return new ResponseData(false, "保存数据时出错");
         }
@@ -54,19 +53,19 @@ public class ${(entity.className)!} extends BaseController {
 
     @RequestMapping(value = "detail.html")
     public String detail(${(entity.idType)!} id, ModelMap model) {
-        Parameters query = new Parameters();
+        Parameter query = new Parameter();
         query.put("id", id);
 
-        model.put("entity", ${(entity.service?uncap_first)!}.findOne(query));
+        model.put("entity", ${(entity.service?uncap_first)!}.selectOne(query));
         return "${(entity.model?uncap_first)!}/detail";
     }
 
     @RequestMapping(value = "edit.html")
     public String edit(${(entity.idType)!} id, ModelMap model) {
-        Parameters query = new Parameters();
+        Parameter query = new Parameter();
         query.put("id", id);
 
-        model.put("entity", ${(entity.service?uncap_first)!}.findOne(query));
+        model.put("entity", ${(entity.service?uncap_first)!}.selectOne(query));
         return "${(entity.model?uncap_first)!}/edit";
     }
 

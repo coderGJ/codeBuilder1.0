@@ -110,9 +110,16 @@ public class Column {
 
     @Override
     public String toString() {
-        return "Column [columnName=" + columnName + ", columnType=" + columnType
-                + ", columnSize=" + columnSize + ", digits=" + digits + ", nullable=" + nullable + ", remarks="
-                + remarks + "]";
+        return "Column{" +
+                "columnName='" + columnName + '\'' +
+                ", camelCaseName='" + camelCaseName + '\'' +
+                ", columnType='" + columnType + '\'' +
+                ", jdbcType='" + jdbcType + '\'' +
+                ", columnSize=" + columnSize +
+                ", digits=" + digits +
+                ", nullable=" + nullable +
+                ", remarks='" + remarks + '\'' +
+                ", primaryKey=" + primaryKey +
+                '}';
     }
-
 }

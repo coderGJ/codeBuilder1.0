@@ -76,7 +76,7 @@ public class GeneratorManager {
     }
 
     private static void initImports() {
-        controllerImports = new ArrayList<String>();
+        controllerImports = new ArrayList<>();
         controllerImports.add("java.util.HashMap");
         controllerImports.add("java.util.List");
         controllerImports.add("java.util.Map");
@@ -96,7 +96,7 @@ public class GeneratorManager {
      * @throws Exception
      */
     public List<JavaBean> getConditionBeanList() throws Exception {
-        List<JavaBean> beanList = new ArrayList<JavaBean>();
+        List<JavaBean> beanList = new ArrayList<>();
         if (tableList == null) {
             tableList = getConditionTableList();
         }
@@ -109,9 +109,9 @@ public class GeneratorManager {
                 javaBean.setFileName(className.concat(SUFFIX_JAVA));
                 javaBean.setTableName(tableName);
                 javaBean.setClassName(className);
-                Set<String> importSet = new HashSet<String>();
-                List<Field> fieldList = new ArrayList<Field>();
-                List<Method> methodList = new ArrayList<Method>();
+                Set<String> importSet = new HashSet<>();
+                List<Field> fieldList = new ArrayList<>();
+                List<Method> methodList = new ArrayList<>();
                 if (table.getPrimaryColumn() != null) {
                     Field field = column2Field(table.getPrimaryColumn());
                     fieldList.add(field);
@@ -142,7 +142,7 @@ public class GeneratorManager {
      * @throws Exception
      */
     public List<Mapper> getConditionMapperList() throws Exception {
-        List<Mapper> mapperList = new ArrayList<Mapper>();
+        List<Mapper> mapperList = new ArrayList<>();
         if (tableList == null) {
             tableList = getConditionTableList();
         }
@@ -169,7 +169,7 @@ public class GeneratorManager {
      * @throws Exception
      */
     public List<Service> getConditionServiceList() throws Exception {
-        List<Service> serviceList = new ArrayList<Service>();
+        List<Service> serviceList = new ArrayList<>();
         if (tableList == null) {
             tableList = getConditionTableList();
         }
@@ -230,7 +230,7 @@ public class GeneratorManager {
      * @throws Exception
      */
     private synchronized List<Table> getConditionTableList() throws Exception {
-        List<Table> tableList = new ArrayList<Table>();
+        List<Table> tableList = new ArrayList<>();
 
         ConnectionFactory cf = ConnectionFactory.getInstance();
         Connection connection = cf.getConnection();
@@ -283,7 +283,7 @@ public class GeneratorManager {
                     }
                     table.setRemarks(tableRemarks);
 
-                    List<Column> columnList = new ArrayList<Column>();
+                    List<Column> columnList = new ArrayList<>();
                     colRet = dbMetaData.getColumns(connection.getCatalog(), "%", name, "%");
                     while (colRet.next()) {
                         Column column = createColumn(colRet, pk);
@@ -393,6 +393,9 @@ public class GeneratorManager {
         Column column = new Column();
         String columnName = columnResult.getString("COLUMN_NAME");
         String typeName = columnResult.getString("TYPE_NAME");
+        if (typeName.contains("UNSIGNED")) {
+            typeName = typeName.split(" ")[0];
+        }
         int nullable = columnResult.getInt("NULLABLE");
 
         column.setCamelCaseName(JavaBeansUtil.getCamelCaseString(columnName, false));
@@ -417,6 +420,7 @@ public class GeneratorManager {
         } else {
             column.setPrimaryKey(false);
         }
+        logger.debug(column.toString());
         return column;
     }
 
@@ -509,7 +513,7 @@ public class GeneratorManager {
         (new Thread() {
             @Override
             public void run() {
-                List<Mapper> list = new ArrayList<Mapper>();
+                List<Mapper> list = new ArrayList<>();
                 try {
                     list = getConditionMapperList();
                 } catch (Exception e) {
