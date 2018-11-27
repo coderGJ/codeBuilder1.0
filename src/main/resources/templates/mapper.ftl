@@ -41,7 +41,7 @@
     </#if>
     </sql>
 
-    <select id="selectList" parameterType="parameters" resultType="${(entity.className)!}">
+    <select id="selectList" parameterType="parameter" resultType="${(entity.className)!}">
         SELECT <include refid="Base_Column_List"/>
         FROM `${entity.tableName}`
         <where>
@@ -52,7 +52,7 @@
         </if>
     </select>
 
-    <select id="selectList_count" parameterType="parameters" resultType="java.lang.Long">
+    <select id="selectList_count" parameterType="parameter" resultType="java.lang.Long">
         SELECT COUNT(1) FROM `${entity.tableName}`
         <where><include refid="where_sql"/></where>
     </select>
