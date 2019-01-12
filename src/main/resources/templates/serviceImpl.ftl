@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 * Created by GuoJun on ${baseConfig.date}
 */
 @Service
-public class ${(entity.className)!}Impl extends AbstractBaseServiceImpl<${(entity.model)!}, ${(entity.modelType)!}> implements ${(entity.className)!} {
+public class ${(entity.className)!}Impl extends AbstractServiceImpl<${(entity.model)!}, ${(entity.modelType)!}> implements ${(entity.className)!} {
     @Override
     public String getNamespace() {
         return ${(entity.model)!}.class.getName();

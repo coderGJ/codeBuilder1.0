@@ -25,7 +25,7 @@ import ${baseConfig.basePackage}.${baseConfig.servicePackage}.${(entity.service)
  */
 @Controller
 @RequestMapping("/${(entity.model?uncap_first)}")
-public class ${(entity.className)!} extends BaseController {
+public class ${(entity.className)!} extends AbstractController {
 
     @Autowired
     private ${(entity.service)!} ${(entity.service?uncap_first)!};
