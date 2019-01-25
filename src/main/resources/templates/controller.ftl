@@ -30,18 +30,18 @@ public class ${(entity.className)!} extends AbstractController {
     @Autowired
     private ${(entity.service)!} ${(entity.service?uncap_first)!};
 
-    @RequestMapping(value = "index.html")
+    @RequestMapping(value = "/index.html")
     public String index(ModelMap model, @ModelAttribute("parameter") Parameter parameter) {
         model.put("pager", ${(entity.service?uncap_first)!}.page(parameter));
         return "${(entity.model?uncap_first)!}/index";
     }
 
-    @RequestMapping(value = "add.html")
+    @RequestMapping(value = "/add.html")
     public String add() {
         return "${(entity.model?uncap_first)!}/add";
     }
 
-    @RequestMapping(value = "save.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/save.json", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData save(@ModelAttribute("entity") ${entity.model} entity) {
         entity = ${(entity.service?uncap_first)!}.insert(entity);
@@ -51,7 +51,7 @@ public class ${(entity.className)!} extends AbstractController {
         return ResponseData.SUCCESS_NO_DATA;
     }
 
-    @RequestMapping(value = "detail.html")
+    @RequestMapping(value = "/detail.html")
     public String detail(${(entity.idType)!} id, ModelMap model) {
         Parameter query = new Parameter();
         query.put("id", id);
@@ -60,7 +60,7 @@ public class ${(entity.className)!} extends AbstractController {
         return "${(entity.model?uncap_first)!}/detail";
     }
 
-    @RequestMapping(value = "edit.html")
+    @RequestMapping(value = "/edit.html")
     public String edit(${(entity.idType)!} id, ModelMap model) {
         Parameter query = new Parameter();
         query.put("id", id);
@@ -69,7 +69,7 @@ public class ${(entity.className)!} extends AbstractController {
         return "${(entity.model?uncap_first)!}/edit";
     }
 
-    @RequestMapping(value = "update.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/update.json", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData update(@ModelAttribute("entity") ${entity.model} entity) {
         int result = ${(entity.service?uncap_first)!}.update(entity);
@@ -79,7 +79,7 @@ public class ${(entity.className)!} extends AbstractController {
         return ResponseData.SUCCESS_NO_DATA;
     }
 
-    @RequestMapping(value = "delete.json")
+    @RequestMapping(value = "/delete.json")
     @ResponseBody
     public ResponseData delete(${(entity.idType)!} id) {
         if (id == null) {
