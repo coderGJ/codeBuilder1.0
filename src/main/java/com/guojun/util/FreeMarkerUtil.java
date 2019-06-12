@@ -208,7 +208,7 @@ public class FreeMarkerUtil {
         Context context = Context.getContext();
         BaseConfiguration bg = context.getBaseConfiguration();
         // 创建数据模型
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>();
 
         data.put("baseConfig", bg);
         data.put("entity", object);
@@ -223,7 +223,7 @@ public class FreeMarkerUtil {
     }
 
     /**
-     * 在控制台打印根据模板生成的信息
+     * 根据模板生成的信息
      * @param templateFtl
      * @param object
      * @throws Exception
@@ -235,7 +235,7 @@ public class FreeMarkerUtil {
         Context context = Context.getContext();
         BaseConfiguration bg = context.getBaseConfiguration();
         // 创建数据模型
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>();
 
         data.put("baseConfig", bg);
         data.put("entity", object);

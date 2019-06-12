@@ -81,8 +81,13 @@
         WHERE <#if entity.primaryColumn??>`${entity.primaryColumn.columnName}` = <#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}, jdbcType = ${entity.primaryColumn.jdbcType}<#noparse>}</#noparse></#if>
     </update>
 
-    <delete id="delete" parameterType="<#if entity.primaryColumn.columnType == "BIGINT" || entity.primaryColumn.columnType == "INT">java.lang.Long<#else>java.lang.String</#if>">
+    <delete id="delete" parameterType="<#if entity.primaryColumn.columnType == "BIGINT">java.lang.Long<#elseif entity.primaryColumn.columnType == "INT">java.lang.Integer<#else>java.lang.String</#if>">
         DELETE FROM `${entity.tableName}`
         WHERE <#if entity.primaryColumn??>`${entity.primaryColumn.columnName}` = <#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}, jdbcType = ${entity.primaryColumn.jdbcType}<#noparse>}</#noparse></#if>
+    </delete>
+
+    <delete id="deleteBatch" parameterType="java.lang.String">
+        DELETE FROM `${entity.tableName}`
+        WHERE <#if entity.primaryColumn??>`${entity.primaryColumn.columnName}` IN (<#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}, jdbcType = ${entity.primaryColumn.jdbcType}<#noparse>}</#noparse>)</#if>
     </delete>
 </mapper>

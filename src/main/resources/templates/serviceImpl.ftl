@@ -7,11 +7,11 @@ import ${baseConfig.basePackage}.${baseConfig.servicePackage}.${(entity.classNam
 import org.springframework.stereotype.Service;
 
 /**
-*
-* @author  ${baseConfig.author}
-* @since   ${baseConfig.version}
-* Created by GuoJun on ${baseConfig.date}
-*/
+ *
+ * @author  ${baseConfig.author}
+ * @since   ${baseConfig.version}
+ * Created by GuoJun on ${baseConfig.date}
+ */
 @Service
 public class ${(entity.className)!}Impl extends AbstractServiceImpl<${(entity.model)!}, ${(entity.modelType)!}> implements ${(entity.className)!} {
     @Override

@@ -10,6 +10,6 @@ import ${baseConfig.basePackage}.${baseConfig.beanPackage}.${entity.model};
  * @since   ${baseConfig.version}
  * Created by GuoJun on ${baseConfig.date}
  */
-public interface ${(entity.className)!} extends BaseService<${(entity.model)!}, ${(entity.modelType)!}> {
+public interface ${(entity.className)!} extends AbstractService<${(entity.model)!}, ${(entity.modelType)!}> {
 
 }
