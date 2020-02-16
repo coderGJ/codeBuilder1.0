@@ -23,7 +23,7 @@
 
     <sql id="where_sql">
     <#if entity.primaryColumn??>
-        <if test="${entity.primaryColumn.camelCaseName}">
+        <if test="${entity.primaryColumn.camelCaseName} != null">
             AND `${entity.primaryColumn.columnName}` = <#noparse>#{</#noparse>${entity.primaryColumn.camelCaseName}<#noparse>}</#noparse>
         </if>
     </#if>
@@ -53,7 +53,7 @@
     </select>
 
     <select id="selectList_count" parameterType="parameter" resultType="java.lang.Long">
-        SELECT COUNT(1) FROM `${entity.tableName}`
+        SELECT COUNT(*) FROM `${entity.tableName}`
         <where><include refid="where_sql"/></where>
     </select>
 
